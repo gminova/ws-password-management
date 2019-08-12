@@ -2,9 +2,14 @@
 
 const bcrypt = require("bcryptjs");
 
-const hashPassword = (password, callback) => {
-  // use bcrypt to hash the password and return it asynchronously
-  callback(new Error("TODO"));
+const hashPassword = (password, cb) => {
+  bcrypt.genSalt(10, (err, salt) => {
+    if(err) {
+      cb(err);
+    } else {
+      bcrypt.hash(password, salt, cb);
+    }
+  }) 
 };
 
 const comparePasswords = (password, hashedPassword, callback) => {
