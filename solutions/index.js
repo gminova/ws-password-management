@@ -7,13 +7,25 @@ const hashPassword = (password, callback) => {
     if (err) {
       callback(err);
     } else {
-      bcrypt.hash(password, salt, callback);
+      bcrypt.hash(password, salt, (err, hash) => {
+        if (err) {
+          callback(err);
+        } else {
+          callback(hash);
+        }
+      });
     }
   });
 };
 
 const comparePasswords = (password, hashedPassword, callback) => {
-  bcrypt.compare(password, hashedPassword, callback);
+  bcrypt.compare(password, hashedPassword, (err, res) => {
+    if(err) {
+      callback(err);
+    } else {
+      callback(res);
+    }
+  });
 };
 
 module.exports = {
