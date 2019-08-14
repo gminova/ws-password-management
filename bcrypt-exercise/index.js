@@ -7,7 +7,15 @@ const hashPassword = (password, cb) => {
     if (err) {
       cb(err);
     } else {
-      bcrypt.hash(password, salt, cb);
+      bcrypt.hash(password, salt, (err, hash) => {
+        if (err) {
+          cb(err);
+        } else {
+          cb(null, hash);
+          console.log(hash)
+        }
+      });
+      console.log(password);
     }
   });
 };
